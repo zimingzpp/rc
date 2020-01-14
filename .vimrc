@@ -142,6 +142,13 @@ endif
 
 " 总是显示状态行
 set cmdheight=2
+
+"高亮go函数名操作符等
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
 " Always highlight column 80 so it's easier to see where
 " cutoff appears on longer screens
 "autocmd BufWinEnter * highlight ColorColumn ctermbg=darkred
@@ -185,6 +192,9 @@ map <leader>j <C-w>j
 map <leader>k <C-w>k
 map <leader>pi :PlugInstall<cr>
 map <leader><cr> :set nohlsearch<cr>
+map <F5> :GoRun<cr>
+imap <F8> <C-x><C-o>
+map <F2> :vnew $MYVIM
 "}}}
 
 "Commands{{{
@@ -197,6 +207,10 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 "open a NERDTree automatically when vim starts up if no files were specified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" Go to previous (last accessed) window.
+wincmd w
+"autocmd VimEnter * <C-w>w
 
 "open a NERDTree automatically when vim starts up
 autocmd vimenter * NERDTree
@@ -244,12 +258,4 @@ func! SetTitle()
 endfunc
 autocmd BufNewFile * normal Go
 "按<F5>编译运行
-map <F5> :call CompileRun()<CR>
-func! CompileRun()
-    exec "w"
-    if $filetype == 'Go'
-        exec "!go  build %<"
-        exec "!time go run %"
-    endif
-endfunc
-"}}}}}}
+"}}}
