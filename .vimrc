@@ -182,7 +182,7 @@ if version >= 603
 endif
 
 " 总是显示状态行
-set cmdheight=2
+set cmdheight=1
 
 "高亮go函数名操作符等
 let g:go_highlight_functions = 1
@@ -200,7 +200,9 @@ let g:go_highlight_build_constraints = 1
 call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'preservim/nerdtree'
+Plug 'mattn/emmet-vim'
 Plug 'bling/vim-airline'
+Plug 'Valloric/YouCompleteMe'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 Plug 'mileszs/ack.vim'
@@ -383,7 +385,7 @@ if !exists('g:airline_symbols')
     let g:bufferline_echo=0
     set laststatus=2
     set t_Co=256
-    set fillchars+=stl:\ ,stlnc:\
+    "set fillchars+=stl:\ ,stlnc:\
 
 "}}}
 "======================================================================================
@@ -409,6 +411,7 @@ map <F2> :vnew $MYVIMRC<cr>
 autocmd BufRead * setlocal foldmethod=marker
 autocmd BufRead * normal zM
 
+let g:ycm_use_clangd = 0
 "close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
